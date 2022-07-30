@@ -412,6 +412,8 @@ dependencies = [
  "cosmwasm-storage",
  "cw-storage-plus",
  "cw20-token",
+ "schemars",
+ "serde",
 ]
 
 [[package]]

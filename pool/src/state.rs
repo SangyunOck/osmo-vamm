@@ -19,5 +19,4 @@ pub struct TokenInfo {
     pub amount: Uint128,
 }
 
-
 pub const POOL: Item<PoolInfo> = Item::new("pool");

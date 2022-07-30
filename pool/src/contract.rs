@@ -1,6 +1,7 @@
 use cosmwasm_std::{Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult};
-use crate::msg::{InstantiateMsg, QueryMsg};
-use crate::query;
+use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg};
+use crate::msg::ExecuteMsg::UpdateTokenAmount;
+use crate::{execute, query};
 use crate::state::{POOL, PoolInfo};
 
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -16,6 +17,7 @@ pub fn instantiate(
         tokenA: msg.tokenA,
         tokenB: msg.tokenB,
         main_contract: info.sender,
+        k: msg.k
     })?;
 
     Ok(
@@ -25,8 +27,20 @@ pub fn instantiate(
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
+pub fn execute(
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
+    msg: ExecuteMsg,
+) -> Result<Response, ContractError> {
+    match msg {
+        ExecuteMsg::UpdateTokenAmount {tokenA, tokenB} => execute::update_token_amount(deps, tokenA, tokenB)
+    }
+}
+
+#[cfg_attr(not(feature = "library"), entry_point)]
 pub fn query(deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
-        QueryMsg::TokenInfo {} => query::balance(deps)
+        QueryMsg::TokenInfo {} => query::pool_info(deps)
     }
 }
