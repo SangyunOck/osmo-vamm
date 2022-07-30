@@ -1,0 +1,12 @@
+[package]
+name = "pool"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cw20-token = {path = "../cw20-token"}
+cosmwasm-std = "1.0.0"
+cosmwasm-storage = "1.0.0"
+cw-storage-plus = "0.13.2"
